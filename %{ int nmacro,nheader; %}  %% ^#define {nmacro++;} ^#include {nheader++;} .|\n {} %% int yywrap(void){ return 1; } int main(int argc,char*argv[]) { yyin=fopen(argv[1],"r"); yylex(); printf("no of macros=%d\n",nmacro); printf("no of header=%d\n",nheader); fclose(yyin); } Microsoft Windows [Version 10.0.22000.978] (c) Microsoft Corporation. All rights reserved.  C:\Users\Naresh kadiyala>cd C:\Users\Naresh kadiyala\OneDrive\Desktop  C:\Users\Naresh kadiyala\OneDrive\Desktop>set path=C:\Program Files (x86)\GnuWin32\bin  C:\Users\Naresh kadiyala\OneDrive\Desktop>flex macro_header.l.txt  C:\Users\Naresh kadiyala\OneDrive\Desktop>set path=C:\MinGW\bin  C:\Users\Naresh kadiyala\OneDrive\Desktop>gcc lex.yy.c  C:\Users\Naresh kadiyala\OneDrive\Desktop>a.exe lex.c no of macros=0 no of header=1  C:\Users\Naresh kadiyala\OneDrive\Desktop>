@@ -1,0 +1,38 @@
+%{
+int nmacro,nheader;
+%}
+
+%%
+^#define {nmacro++;}
+^#include {nheader++;}
+.|\n {}
+%%
+int yywrap(void){
+return 1;
+}
+int main(int argc,char*argv[])
+{
+yyin=fopen(argv[1],"r");
+yylex();
+printf("no of macros=%d\n",nmacro);
+printf("no of header=%d\n",nheader);
+fclose(yyin);
+}
+Microsoft Windows [Version 10.0.22000.978]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Naresh kadiyala>cd C:\Users\Naresh kadiyala\OneDrive\Desktop
+
+C:\Users\Naresh kadiyala\OneDrive\Desktop>set path=C:\Program Files (x86)\GnuWin32\bin
+
+C:\Users\Naresh kadiyala\OneDrive\Desktop>flex macro_header.l.txt
+
+C:\Users\Naresh kadiyala\OneDrive\Desktop>set path=C:\MinGW\bin
+
+C:\Users\Naresh kadiyala\OneDrive\Desktop>gcc lex.yy.c
+
+C:\Users\Naresh kadiyala\OneDrive\Desktop>a.exe lex.c
+no of macros=0
+no of header=1
+
+C:\Users\Naresh kadiyala\OneDrive\Desktop>
